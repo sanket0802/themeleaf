@@ -9,4 +9,4 @@
   #cd /home/admin123/themeleaf/
   #chmod 700 startup.sh
   cd target
-  java -jar work-0.0.1-SNAPSHOT.jar &
+  java -jar work-0.0.1-SNAPSHOT.jar 
