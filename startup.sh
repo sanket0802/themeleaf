@@ -1,4 +1,5 @@
 cd /home/admin123/themeleaf/thymeleafExample/
+sudo apt install openjdk-8-jdk -y
 sudo apt-get install maven -y 
 mvn test
 mvn package
