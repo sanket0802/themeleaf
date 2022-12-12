@@ -28,7 +28,7 @@ jobs:
                 mvn test
                 mvn package
                 mvn install
-                cd /home/admin123/themeleaf/thymeleafExample/target
+                cd /home/admin123/themeleaf/
                 chmod 700 startup.sh
                 ./startup.sh
                 
