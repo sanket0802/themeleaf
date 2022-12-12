@@ -22,7 +22,7 @@ jobs:
                 sudo apt-get update -y
                 cd /home/admin123/
                 git clone "https://sanket0802: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@github.com/sanket0802/themeleaf.git"
-                cd /themeleaf/thymeleafExample/
+                cd /home/admin123/themeleaf/thymeleafExample/
                 chmod 700 startup.sh
                 ./startup.sh
               
