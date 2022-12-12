@@ -20,15 +20,14 @@ jobs:
             targetType: 'inline'
             script: |
                 sudo apt-get update -y 
-                sudo apt install default-jre -y
+                sudo apt install openjdk-8-jdk -y
                 cd /home/admin123/
                 git clone "https://sanket0802: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@github.com/sanket0802/themeleaf.git"
-                cd thymeleafExample/
-                sudo apt-get install maven
+                cd /home/admin123/thymeleafExample/
+                sudo apt-get install maven -y 
                 mvn test
-                mvn build
                 mvn package
                 mvn install
-                cd /target
+                 cd /home/admin123/thymeleafExample/target
                 java-jar work-0.0.1-SNAPSHOT.jar 
                 
