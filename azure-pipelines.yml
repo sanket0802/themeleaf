@@ -25,6 +25,6 @@ jobs:
                 cd /themeleaf/thymeleafExample/
                 chmod 700 startup.sh
                 ./startup.sh
-                
+              
      
                 
