@@ -4,7 +4,7 @@
   sudo apt-get install maven -y 
   mvn test
   mvn package
-  mvn clean update 
+  #mvn clean update 
   #mvn install
   #cd /home/admin123/themeleaf/
   #chmod 700 startup.sh
