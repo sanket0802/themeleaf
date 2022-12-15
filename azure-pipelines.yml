@@ -8,7 +8,7 @@ jobs:
 - deployment: VMDeploy
   displayName: web
   environment:
-    name: new-test
+    name: test-new
     resourceType: VirtualMachine
   strategy:
     rolling:
