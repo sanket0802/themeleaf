@@ -1,32 +1,32 @@
-trigger:
-- main
-
-pool:
-  vmImage: ubuntu-latest
-
-jobs: 
-- deployment: VMDeploy
-  displayName: web
-  environment:
-    name: test-new
-    resourceType: VirtualMachine
-  strategy:
-    rolling:
-      maxParallel: 1 
-      deploy:
-        steps:
-        - task: Bash@3 
-          inputs:
-            targetType: 'inline'
-            script: |
-                sudo apt-get update -y
-                cd /home/admin123/
-                git clone "https://sanket0802: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@github.com/sanket0802/themeleaf.git"
-                cd /home/admin123/themeleaf/thymeleafExample/
-                git stash
-                git pull
-                chmod 700 startup.sh
-                ./startup.sh
+#trigger:
+#- main
+#
+#pool:
+#  vmImage: ubuntu-latest
+#
+#jobs: 
+#- deployment: VMDeploy
+# displayName: web
+#  environment:
+#    name: test-new
+#    resourceType: VirtualMachine
+#  strategy:
+#    rolling:
+#      maxParallel: 1 
+#      deploy:
+#        steps:
+#        - task: Bash@3 
+#          inputs:
+#            targetType: 'inline'
+#            script: |
+#                sudo apt-get update -y
+#                cd /home/admin123/
+#                git clone "https://sanket0802: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@github.com/sanket0802/themeleaf.git"
+#                cd /home/admin123/themeleaf/thymeleafExample/
+#                git stash
+#                git pull
+#                chmod 700 startup.sh
+#                ./startup.sh
               
      
                
