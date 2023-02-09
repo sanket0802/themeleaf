@@ -11,6 +11,7 @@
 	<groupId>com.work.thymeleaf</groupId>
 	<artifactId>work</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>work</name>
 	<description>Working prototype for Thymeleaf project</description>
 	<properties>
