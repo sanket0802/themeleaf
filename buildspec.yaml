@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      - REPOSITORY_NAME=my-docker-repo  # Replace with your desired ECR repository name
+      - REPOSITORY_URI=$(aws ecr describe-repositories --repository-names $REPOSITORY_NAME --query "repositories[0].repositoryUri" --output text)
+      - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_URI=$REPOSITORY_URI:$IMAGE_TAG
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t $IMAGE_URI .
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image to ECR...
+      - docker push $IMAGE_URI
+artifacts:
+  files: '**/*'
