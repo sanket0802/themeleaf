@@ -1,21 +1,30 @@
 version: 0.2
 
 phases:
-  build:
+  install:
+    runtime-versions:
+      docker:19
+  pre_build:
     commands:
+      - echo "Logging in to Amazon ECR..."
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
+  build:
+    commands:     
       - echo "Building Maven project..."
       - cd thymeleafExample
       - mvn clean install -DskipTests=true
+      - echo "building docker image...."
       - cd ..
-      #- docker build -t thmcodeimage .
+      - docker build -t public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest .
       
   post_build:
     commands:
-        - #docker build -t public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest .
+        #docker build -t public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest .
         # Build and push Docker image to ECR
-        
-        - $(aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4)
-        - docker build -t thm-codeb-repo .
+        - echo "Tagging Docker image..."  
+
+        #- $(aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4)
+        #- docker build -t thm-codeb-repo .
         - docker tag thm-codeb-repo:latest public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest
         - docker push public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest
         - echo "Docker image pushed to ECR"
@@ -23,6 +32,7 @@ phases:
 cache:
   paths:
     - ~/.m2/repository
+
 
 
 #=====================================================================================================================================================================
