@@ -1,4 +1,4 @@
-FROM openjdk11:alpine-jre
+FROM adoptopenjdk/openjdk11
 ARG DEBIAN_FRONTEND=noninteractive
 # RUN apt-get update -y 
 # RUN apt-get install wget -y
