@@ -3,7 +3,7 @@ Resources:
   - TargetService:
       Type: AWS::ECS::Service
       Properties:
-        TaskDefinition: arn:aws:ecs:us-west-2:633025986259:task-definition/hello-world-app:14
+        TaskDefinition: "arn:aws:ecs:us-west-1:633025986259:task-definition/My-Test-Project_Task:1"
         LoadBalancerInfo:
-          ContainerName: hello-world-app
+          ContainerName: "demo-apps1"
           ContainerPort: 8086
