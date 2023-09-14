@@ -28,6 +28,10 @@ phases:
         #- docker tag thm-codeb-repo:latest public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest
         - docker push public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest
         - echo "Docker image pushed to ECR"
+        -  echo Writing image definitions file...
+        - printf '[{"name":"demo-apps1","imageUri":"public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+artifacts:
+    files: imagedefinitions.json
 
 cache:
   paths:
