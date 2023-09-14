@@ -5,5 +5,5 @@ Resources:
       Properties:
         TaskDefinition: "arn:aws:ecs:us-west-1:633025986259:task-definition/My-Test-Project_Task:1"
         LoadBalancerInfo:
-          ContainerName: "demo-apps1"
+          ContainerName: "demo-apps2"
           ContainerPort: 8086
