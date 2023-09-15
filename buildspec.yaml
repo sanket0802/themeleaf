@@ -22,11 +22,11 @@ phases:
       - echo "Pushing Docker image to ECR..."
       - docker push public.ecr.aws/p2g3u3g4/thm-codeb-repo:$CODEBUILD_RESOLVED_SOURCE_VERSION
       - echo "Docker image pushed to ECR"
-      - echo "Writing image definitions file..."
-      - printf '[{"name":"demo-apps2","imageUri":"%s"}]' public.ecr.aws/p2g3u3g4/thm-codeb-repo:$CODEBUILD_RESOLVED_SOURCE_VERSION > imagedefinitions.json
+     # - echo "Writing image definitions file..."
+     # - printf '[{"name":"demo-apps2","imageUri":"%s"}]' public.ecr.aws/p2g3u3g4/thm-codeb-repo:$CODEBUILD_RESOLVED_SOURCE_VERSION > imagedefinitions.json
 
-artifacts:
-  files: imagedefinitions.json
+#artifacts:
+  #files: imagedefinitions.json
 
 cache:
   paths:
