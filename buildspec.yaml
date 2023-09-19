@@ -13,6 +13,7 @@ phases:
       - cd thymeleafExample
       - mvn clean install -DskipTests=true
       - echo "Building Docker image...."
+      - cd ..
       - docker build -t myrepo:latest -f Dockerfile .
       - echo "Docker image built"
 
