@@ -19,8 +19,8 @@ phases:
   post_build:
     commands:
      # - echo "Tagging Docker image..."
-     - docker tag myrepo:latest 633025986259.dkr.ecr.us-west-1.amazonaws.com/myrepo:latest
-     #- docker tag public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest public.ecr.aws/p2g3u3g4/thm-codeb-repo:$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - docker tag myrepo:latest 633025986259.dkr.ecr.us-west-1.amazonaws.com/myrepo:latest
+     # - docker tag public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest public.ecr.aws/p2g3u3g4/thm-codeb-repo:$CODEBUILD_RESOLVED_SOURCE_VERSION
       - echo "Pushing Docker image to ECR..."
       - docker push 633025986259.dkr.ecr.us-west-1.amazonaws.com/myrepo:latest
      #- docker push public.ecr.aws/p2g3u3g4/thm-codeb-repo:$CODEBUILD_RESOLVED_SOURCE_VERSION
