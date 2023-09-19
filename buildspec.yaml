@@ -4,7 +4,8 @@ phases:
   pre_build:
     commands:
       - echo "Logging in to Amazon ECR..."
-      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
+      #- aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
+      - aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 633025986259.dkr.ecr.us-west-1.amazonaws.com
 
   build:
     commands:     
@@ -12,15 +13,17 @@ phases:
       - cd thymeleafExample
       - mvn clean install -DskipTests=true
       - echo "Building Docker image...."
-      - docker build -t public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest -f Dockerfile .
+      - docker build -t 633025986259.dkr.ecr.us-west-1.amazonaws.com/myrepo:latest -f Dockerfile .
       - echo "Docker image built"
 
   post_build:
     commands:
-      - echo "Tagging Docker image..."
-      - docker tag public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest public.ecr.aws/p2g3u3g4/thm-codeb-repo:$CODEBUILD_RESOLVED_SOURCE_VERSION
+     # - echo "Tagging Docker image..."
+     #- docker tag myrepo:latest 633025986259.dkr.ecr.us-west-1.amazonaws.com/myrepo:latest
+     #- docker tag public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest public.ecr.aws/p2g3u3g4/thm-codeb-repo:$CODEBUILD_RESOLVED_SOURCE_VERSION
       - echo "Pushing Docker image to ECR..."
-      - docker push public.ecr.aws/p2g3u3g4/thm-codeb-repo:$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - docker push 633025986259.dkr.ecr.us-west-1.amazonaws.com/myrepo:latest
+     #- docker push public.ecr.aws/p2g3u3g4/thm-codeb-repo:$CODEBUILD_RESOLVED_SOURCE_VERSION
       - echo "Docker image pushed to ECR"
      # - echo "Writing image definitions file..."
      # - printf '[{"name":"demo-apps2","imageUri":"%s"}]' public.ecr.aws/p2g3u3g4/thm-codeb-repo:$CODEBUILD_RESOLVED_SOURCE_VERSION > imagedefinitions.json
