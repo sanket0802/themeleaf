@@ -4,9 +4,9 @@ phases:
   pre_build:
     commands:
       - echo "Logging in to Amazon ECR..."
-      #- aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
       #- aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 633025986259.dkr.ecr.us-west-1.amazonaws.com
-      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+      #- aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
 
   build:
     commands:     
@@ -21,8 +21,8 @@ phases:
   post_build:
     commands:
      # - echo "Tagging Docker image..."
-      - docker tag $IMAGE_NAME:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_NAME:$IMAGE_TAG
-     # - docker tag public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest public.ecr.aws/p2g3u3g4/thm-codeb-repo:$CODEBUILD_RESOLVED_SOURCE_VERSION
+     # - docker tag $IMAGE_NAME:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_NAME:$IMAGE_TAG
+      - docker tag public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest public.ecr.aws/p2g3u3g4/thm-codeb-repo:$CODEBUILD_RESOLVED_SOURCE_VERSION
       - echo "Pushing Docker image to ECR..."
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_NAME:$IMAGE_TAG
      #- docker push public.ecr.aws/p2g3u3g4/thm-codeb-repo:$CODEBUILD_RESOLVED_SOURCE_VERSION
