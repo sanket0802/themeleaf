@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage("git clone"){
             steps{
-                git branch: 'main', url: 'https://github.com/NarenPrakash/thymeleafExample.git'       
+                git branch: 'main', url: 'https://github.com/sanket0802/themeleaf.git     
             }
         }    
         stage("build code"){
