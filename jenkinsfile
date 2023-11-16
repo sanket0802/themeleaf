@@ -1,24 +1,19 @@
 pipeline {
-    agent any
-    tools { 
-      jdk 'openjdk'
-      maven 'Maven3.8.7' 
-    }
-    stages {
-        stage("git clone"){
-            steps{
-                git branch: 'main', url: 'https://github.com/sanket0802/themeleaf.git     
-            }
-        }    
-        stage("build code"){
-            steps{
-                bat 'mvn clean install'
-            }
-        }
-        stage("publish to s3"){
-            steps{
-                s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: false, dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: 'san-jenkins-artifacts/${JOB_NAME}-${BUILD_NUMBER}.', excludedFile: '**/themeleaf-pipeline/target/', flatten: false, gzipFiles: false, keepForever: false, managedArtifacts: false, noUploadOnFailure: false, selectedRegion: 'us-east-1', showDirectlyInBrowser: false, sourceFile: '**/*.jar', storageClass: 'STANDARD', uploadFromSlave: false, useServerSideEncryption: false]], pluginFailureResultConstraint: 'FAILURE', profileName: 'sanket-jenkins-artifact', userMetadata: []       
-                }  
-        }    
-    }
+    agent any
+    tools { 
+      maven 'Maven3.8.7' 
+      jdk 'openjdk' 
+    }
+    stages {
+        stage("git clone"){
+            steps{
+                git branch: 'main', url: 'https://github.com/NarenPrakash/thymeleafExample.git'
+            }
+        }    
+        stage("build code"){
+            steps{
+                bat 'mvn clean install'
+            }
+        }
+    }
 }
