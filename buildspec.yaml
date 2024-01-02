@@ -28,7 +28,7 @@ artifacts:
   files: imagedefinitions.json
   name: san-artifact
   discard-paths: yes
-  s3: sanket-artifacts123
+  s3: arn:aws:s3:::sanket-artifacts123 
 
 
 
