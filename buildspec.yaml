@@ -22,7 +22,7 @@ phases:
     commands:
       - sudo docker tag thm:latest public.ecr.aws/p1g1u1g1/thm:latest
       - sudo docker push public.ecr.aws/p1g1u1g1/thm:latest
-      - printf '[{"name":"thmcont","imageUri":"public.ecr.aws/p2g3u3g4/thm"}]' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG > imagedefinitions.json
+      - echo '[{"name":"thmcont","imageUri":"public.ecr.aws/p2g3u3g4/thm"}]' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG > imagedefinitions.json
 
 artifacts:
   files: imagedefinitions.json
