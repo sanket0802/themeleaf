@@ -4,34 +4,32 @@ phases:
   pre_build:
     commands:
       - echo "Logging in to Amazon ECR..."
-      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
-      #- aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 633025986259.dkr.ecr.us-west-1.amazonaws.com
-      #- aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p1g1u1g1
 
   build:
-    commands:     
-       - echo "Logging in to Amazon ECR..."
-        - ls
-    build:
-      commands:
-        - echo "Building Maven project..."
-        - cd thymeleafExample
-        - mvn clean install -DskipTests=true
-        - echo "building docker image...."
-        - cd ..
-        - ls
-        - pwd
-        - docker build -t thm .
-        - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
-        #- sudo docker build -t public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest .
-        
-    post_build:
-      commands:
-          - sudo docker tag thm:latest public.ecr.aws/p2g3u3g4/thm:latest
-          - sudo docker push public.ecr.aws/p2g3u3g4/thm:latest
-  cache:
-    paths:
-      - ~/.m2/repository
+    commands:
+      - echo "Building Maven project..."
+      - cd thymeleafExample
+      - mvn clean install -DskipTests=true
+      - echo "Building Docker image..."
+      - cd ..
+      - ls
+      - pwd
+      - docker build -t thm .
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p1g1u1g1
+
+  post_build:
+    commands:
+      - sudo docker tag thm:latest public.ecr.aws/p1g1u1g1/thm:latest
+      - sudo docker push public.ecr.aws/p1g1u1g1/thm:latest
+      - printf '[{"name":"thmcont","imageUri":"public.ecr.aws/p2g3u3g4/thm"}]' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG > imagedefinitions.json
+
+artifacts:
+  files: imagedefinitions.json
+  name: san-artifact
+  discard-paths: yes
+  s3: sanket-artifacts123
+
 
 
 
