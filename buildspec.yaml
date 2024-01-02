@@ -10,32 +10,28 @@ phases:
 
   build:
     commands:     
-      - echo "Building Maven project..."
-      - cd thymeleafExample
-      - mvn clean install -DskipTests=true
-      - echo "Building Docker image...."
-      - cd ..
-      - docker build -t $IMAGE_NAME:latest -f Dockerfile .
-      - echo "Docker image built"
-
-  post_build:
-    commands:
-     # - echo "Tagging Docker image..."
-     # - docker tag $IMAGE_NAME:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_NAME:$IMAGE_TAG
-      - docker tag public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest public.ecr.aws/p2g3u3g4/thm-codeb-repo:$CODEBUILD_RESOLVED_SOURCE_VERSION
-      - echo "Pushing Docker image to ECR..."
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_NAME:$IMAGE_TAG
-     #- docker push public.ecr.aws/p2g3u3g4/thm-codeb-repo:$CODEBUILD_RESOLVED_SOURCE_VERSION
-      - echo "Docker image pushed to ECR"
-     # - echo "Writing image definitions file..."
-     # - printf '[{"name":"demo-apps2","imageUri":"%s"}]' public.ecr.aws/p2g3u3g4/thm-codeb-repo:$CODEBUILD_RESOLVED_SOURCE_VERSION > imagedefinitions.json
-
-#artifacts:
-  #files: imagedefinitions.json
-
-cache:
-  paths:
-    - ~/.m2/repository
+       - echo "Logging in to Amazon ECR..."
+        - ls
+    build:
+      commands:
+        - echo "Building Maven project..."
+        - cd thymeleafExample
+        - mvn clean install -DskipTests=true
+        - echo "building docker image...."
+        - cd ..
+        - ls
+        - pwd
+        - docker build -t thm .
+        - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
+        #- sudo docker build -t public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest .
+        
+    post_build:
+      commands:
+          - sudo docker tag thm:latest public.ecr.aws/p2g3u3g4/thm:latest
+          - sudo docker push public.ecr.aws/p2g3u3g4/thm:latest
+  cache:
+    paths:
+      - ~/.m2/repository
 
 
 
