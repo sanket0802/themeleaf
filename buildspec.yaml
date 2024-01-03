@@ -42,24 +42,24 @@ phases:
       #- aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 633025986259.dkr.ecr.us-west-1.amazonaws.com
       #- aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
     
-  # build:
-  #   commands:     
-  #      - echo "Logging in to Amazon ECR..."
-  #       - ls
   build:
-    commands:
+    commands:     
        - echo "Logging in to Amazon ECR..."
-       - ls
-       - echo "Building Maven project..."
-       - cd thymeleafExample
-       - mvn clean install -DskipTests=true
-       - echo "building docker image...."
-       - cd ..
-       - ls
-       - pwd
-       - docker build -t thm .
-       - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
-       #- sudo docker build -t public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest .
+        - ls
+    build:
+      commands:
+         - echo "Logging in to Amazon ECR..."
+         - ls
+         - echo "Building Maven project..."
+         - cd thymeleafExample
+         - mvn clean install -DskipTests=true
+         - echo "building docker image...."
+         - cd ..
+         - ls
+         - pwd
+         - docker build -t thm .
+         - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
+         #- sudo docker build -t public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest .
         
   post_build:
      commands:
