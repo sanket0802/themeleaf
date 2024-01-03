@@ -67,9 +67,9 @@ phases:
         - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
         - sudo docker tag thm:latest public.ecr.aws/p2g3u3g4/thm:latest
         - sudo docker push public.ecr.aws/p2g3u3g4/thm:latest
-cache:
-  paths:
-    - ~/.m2/repository
+  cache:
+    paths:
+      - ~/.m2/repository
 
   artifacts:
     files: '**/*'
