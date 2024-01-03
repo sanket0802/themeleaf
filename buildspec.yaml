@@ -19,6 +19,7 @@
 
 #   post_build:
 #     commands:
+        - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
 #       - sudo docker tag thm:latest public.ecr.aws/p2g3u3g4/thm:latest
 #       - sudo docker push public.ecr.aws/p2g3u3g4/thm:latest
 
@@ -58,11 +59,12 @@ phases:
          - ls
          - pwd
          - docker build -t thm .
-         - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
+         #- aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
          #- sudo docker build -t public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest .
         
   post_build:
      commands:
+        - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
         - sudo docker tag thm:latest public.ecr.aws/p2g3u3g4/thm:latest
         - sudo docker push public.ecr.aws/p2g3u3g4/thm:latest
 cache:
