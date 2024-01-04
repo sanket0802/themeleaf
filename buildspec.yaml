@@ -13,7 +13,7 @@ phases:
      #- REPOSITORY_URI=358325425581.dkr.ecr.ap-south-1.amazonaws.com/spring-demo-ecr 
      #- IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
       - REPOSITORY_URI=public.ecr.aws/p2g3u3g4/thm #change the uri
-      - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
+      - IMAGE_TAG= latest #build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
   build:
     commands:
       - echo "Logging in to Amazon ECR..."
@@ -39,7 +39,7 @@ phases:
       - echo Build completed on `date`
       - echo pushing to repo
       - docker push $REPOSITORY_URI:latest
-      - docker push $REPOSITORY_URI:$IMAGE_TAG
+     #- docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
       # Give your container name
       - DOCKER_CONTAINER_NAME=thm
