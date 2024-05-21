@@ -4,7 +4,7 @@ RUN apt-get update -y
 # RUN apt-get install wget -y
 RUN apt-get install sudo -y
 # RUN apt-get install git -y 
-# RUN git clone https://github.com/NarenPrakash/thymeleafExample.git 
+RUN git clone https://github.com/NarenPrakash/thymeleafExample.git 
 # RUN sudo mkdir /mvnproject
 # RUN cp -r thymeleafExample mvnproject
 # WORKDIR thymeleafExample
