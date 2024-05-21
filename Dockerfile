@@ -10,9 +10,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 # WORKDIR thymeleafExample
 # RUN ls
 #RUN cd thymeleafExample
-# RUN sudo apt-get install openjdk-8-jdk -y
+RUN sudo apt-get install openjdk-8-jdk -y
 # #RUN cd thymeleafExample
-# RUN sudo apt-get install maven -y
+RUN sudo apt-get install maven -y
 RUN mvn install 
 # RUN mvn package
 # RUN mvn test 
