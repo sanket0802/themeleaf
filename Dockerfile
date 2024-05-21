@@ -5,9 +5,9 @@ RUN apt-get update -y
 RUN apt-get install sudo -y
 RUN apt-get install git -y 
 RUN git clone https://github.com/NarenPrakash/thymeleafExample.git 
-# RUN sudo mkdir /mvnproject
-# RUN cp -r thymeleafExample mvnproject
-# WORKDIR thymeleafExample
+RUN sudo mkdir /mvnproject
+RUN cp -r thymeleafExample mvnproject
+WORKDIR mvnproject
 # RUN ls
 #RUN cd thymeleafExample
 RUN sudo apt-get install openjdk-8-jdk -y
