@@ -21,4 +21,3 @@ WORKDIR /thymeleafExample/target
 #COPY thymeleafExample/target/work-0.0.1-SNAPSHOT.jar /
 EXPOSE 8086
 CMD ["java","-jar","work-0.0.1-SNAPSHOT.jar"]
-
