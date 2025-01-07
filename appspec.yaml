@@ -3,7 +3,7 @@ Resources:
   - TargetService:
       Type: AWS::ECS::Service
       Properties:
-        TaskDefinition: "arn:aws:ecs:us-west-1:633025986259:task-definition/My-Test-Project_Task:1"
+        TaskDefinition: "arn:aws:ecs:us-east-1:633025986259:task-definition/test:4"
         LoadBalancerInfo:
-          ContainerName: "demo-apps2"
+          ContainerName: "sample-api"
           ContainerPort: 8086
