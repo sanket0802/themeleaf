@@ -24,8 +24,8 @@ phases:
       - echo "building docker image...."
       - cd ..
       - pwd
-      - docker build -t sample-api .
-      - sudo docker tag sample-api:latest 633025986259.dkr.ecr.us-west-1.amazonaws.com/leaf:latest
+      - docker build -t leaf .
+      - sudo docker tag leaf:latest 633025986259.dkr.ecr.us-west-1.amazonaws.com/leaf:latest
    ###- aws ecr-public get-login-password --region us-west-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
       #- echo Build started on `date`
       #- echo building the Jar file
