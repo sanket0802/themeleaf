@@ -5,7 +5,7 @@ phases:
       - echo "Logging in to Amazon ECR..."
      #$ - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
      # - aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 633025986259.dkr.ecr.us-west-2.amazonaws.com
-      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
+      - aws ecr-public get-login-password --region us-west-2 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
      # - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
      # - echo Logging in to Amazon ECR....
      # - aws --version
