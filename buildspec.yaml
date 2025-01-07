@@ -39,8 +39,8 @@ phases:
       #- sudo docker push public.ecr.aws/p2g3u3g4/thm:latest
       - echo Build completed on `date`
       - echo pushing to repo
-      - docker push $REPOSITORY_URI:latest
-     #- docker push $REPOSITORY_URI:$IMAGE_TAG
+      #- docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
       # Give your container name
       - DOCKER_CONTAINER_NAME=sample-api
