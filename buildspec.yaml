@@ -4,13 +4,13 @@ phases:
     commands:
       - echo "Logging in to Amazon ECR..."
      #$ - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 633025986259.dkr.ecr.us-east-1.amazonaws.com
+      - aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 633025986259.dkr.ecr.us-west-1.amazonaws.com
      # - echo Logging in to Amazon ECR....
      # - aws --version
      ##- $(aws ecr get-login --region ap-south-1 --no-include-email)
      # - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 358325425581.dkr.ecr.ap-south-1.amazonaws.com
      # -  Replace with this to your repository URI
-      - REPOSITORY_URI=633025986259.dkr.ecr.us-east-1.amazonaws.com/leaf
+      - REPOSITORY_URI=633025986259.dkr.ecr.us-west-1.amazonaws.com/leaf
       - IMAGE_TAG=latest #build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
      #$ - REPOSITORY_URI=public.ecr.aws/p2g3u3g4/thm #change the uri
      #$ - IMAGE_TAG=latest #build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
@@ -25,8 +25,8 @@ phases:
       - cd ..
       - pwd
       - docker build -t sample-api .
-      - sudo docker tag sample-api:latest 633025986259.dkr.ecr.us-east-1.amazonaws.com/leaf:latest
-   ###- aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
+      - sudo docker tag sample-api:latest 633025986259.dkr.ecr.us-west-1.amazonaws.com/leaf:latest
+   ###- aws ecr-public get-login-password --region us-west-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
       #- echo Build started on `date`
       #- echo building the Jar file
       #- mvn clean install
