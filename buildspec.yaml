@@ -3,20 +3,9 @@ phases:
   pre_build:
     commands:
       - echo "Logging in to Amazon ECR..."
-     #$ - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
-     # - aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 633025986259.dkr.ecr.us-west-2.amazonaws.com
       - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
-     # - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
-     # - echo Logging in to Amazon ECR....
-     # - aws --version
-     ##- $(aws ecr get-login --region ap-south-1 --no-include-email)
-     # - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 358325425581.dkr.ecr.ap-south-1.amazonaws.com
-     # -  Replace with this to your repository URI
-     # - REPOSITORY_URI=633025986259.dkr.ecr.us-west-2.amazonaws.com/leaf
       - REPOSITORY_URI=public.ecr.aws/p2g3u3g4/leaf
       - IMAGE_TAG=latest #build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
-     #$ - REPOSITORY_URI=public.ecr.aws/p2g3u3g4/thm #change the uri
-     #$ - IMAGE_TAG=latest #build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
   build:
     commands:
       - echo "Logging in to Amazon ECR..."
@@ -29,23 +18,12 @@ phases:
       - pwd
       - docker build -t leaf .
       - docker tag leaf:latest public.ecr.aws/p2g3u3g4/leaf:latest
-      #- sudo docker tag leaf:latest 633025986259.dkr.ecr.us-west-1.amazonaws.com/leaf:latest
-   ###- aws ecr-public get-login-password --region us-west-2 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
-      #- echo Build started on `date`
-      #- echo building the Jar file
-      #- mvn clean install
-      #- echo Building the Docker image...
-      #- docker build -t $REPOSITORY_URI:latest .
-      #- docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
-    commands:
-      #- sudo docker push public.ecr.aws/p2g3u3g4/thm:latest
+    commands: 
       - echo Build completed on `date`
       - echo pushing to repo
-      #- docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
-      # Give your container name
       - DOCKER_CONTAINER_NAME=sample-api
       - printf '[{"name":"%s","imageUri":"%s"}]' $DOCKER_CONTAINER_NAME $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - echo $DOCKER_CONTAINER_NAME
@@ -58,76 +36,5 @@ artifacts:
 
 
 
-#============================================================================================================================================================================
-# version: 0.2
-
-# phases:
-#   pre_build:
-#     commands:
-#       - echo "Logging in to Amazon ECR..."
-#       #- aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
-#       #- aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 633025986259.dkr.ecr.us-west-1.amazonaws.com
-#       #- aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
-    
-#   build:
-#     commands:     
-#        - echo "Logging in to Amazon ECR..."
-#         - ls
-#     build:
-#       commands:
-#          - echo "Logging in to Amazon ECR..."
-#          - ls
-#          - echo "Building Maven project..."
-#          - cd thymeleafExample
-#          - mvn clean install -DskipTests=true
-#          - echo "building docker image...."
-#          - cd ..
-#          - ls
-#          - pwd
-#          - docker build -t thm .
-#          #- aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
-#          #- sudo docker build -t public.ecr.aws/p2g3u3g4/thm-codeb-repo:latest .
-        
-#   post_build:
-#      commands:
-#         - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/p2g3u3g4
-#         - sudo docker tag thm:latest public.ecr.aws/p2g3u3g4/thm:latest
-#         - sudo docker push public.ecr.aws/p2g3u3g4/thm:latest
-#   cache:
-#     paths:
-#       - ~/.m2/repository
-
-#   artifacts:
-#     files: '**/*'
 
 
-
-
-#====================================================================================================================================================================
-# version: 0.2
-
-# phases:
-#   install:
-#     runtime-versions:
-#       java: corretto11
-#   pre_build:
-#     commands:
-#       - echo Logging in to Amazon ECR...
-#       - aws --version
-#       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
-#       - REPOSITORY_NAME=my-docker-repo  # Replace with your desired ECR repository name
-#       - REPOSITORY_URI=$(aws ecr describe-repositories --repository-names $REPOSITORY_NAME --query "repositories[0].repositoryUri" --output text)
-#       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-#       - IMAGE_URI=$REPOSITORY_URI:$IMAGE_TAG
-#   build:
-#     commands:
-#       - echo Build started on `date`
-#       - echo Building the Docker image...
-#       - docker build -t $IMAGE_URI -f Dockerfile .  # Reference the Dockerfile
-#   post_build:
-#     commands:
-#       - echo Build completed on `date`
-#       - echo Pushing the Docker image to ECR...
-#       - docker push $IMAGE_URI
-# artifacts:
-#   files: '**/*'
