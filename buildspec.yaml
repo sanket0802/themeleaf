@@ -1,4 +1,5 @@
 version: 0.2
+
 phases:
   pre_build:
     commands:
@@ -13,28 +14,32 @@ phases:
       - echo "Building Maven project..."
       - cd thymeleafExample
       - mvn clean install -DskipTests=true
-      - echo "building docker image...."
+      - echo "Building Docker image..."
       - cd ..
       - pwd
       - docker build -t leaf .
       - docker tag leaf:latest public.ecr.aws/p2g3u3g4/leaf:latest
   post_build:
-    commands: 
-      - echo Build completed on `date`
-      - echo pushing to repo
+    commands:
+      - echo "Build completed on $(date)"
+      - echo "Pushing to repo..."
       - docker push $REPOSITORY_URI:$IMAGE_TAG
-      - echo Writing image definitions file...
+      - echo "Writing image definitions file..."
       - DOCKER_CONTAINER_NAME=sample-api
       - printf '[{"name":"%s","imageUri":"%s"}]' $DOCKER_CONTAINER_NAME $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - echo $DOCKER_CONTAINER_NAME
-      - echo printing imagedefinitions.json
+      - echo "Printing imagedefinitions.json"
       - cat imagedefinitions.json
+
+      # EKS Deployment Commands
+      - echo "Configuring kubectl to interact with EKS..."
+      - aws eks --region us-east-1 update-kubeconfig --name test-themeleaf  # Update with your EKS cluster name
+      - echo "Deploying application to EKS..."
+      - kubectl apply -f deployment.yaml  # Path to your Kubernetes deployment file
+      #- kubectl apply -f kubernetes/service.yaml     # Path to your Kubernetes service file
+      - echo "Deployment completed to EKS!"
+      
 artifacts:
   files:
     - imagedefinitions.json
     - target/work-0.0.1-SNAPSHOT.jar
-
-
-
-
-
